@@ -1,25 +1,120 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { useContext } from 'react';
+import { ThemeContext } from './context/ThemeContext';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import {
+
+    BrowserRouter,
+
+    Routes,
+
+    Route
+
+} from 'react-router-dom';
+
+import Navbar from './Navbar';
+
+import ProtectedRoute from './LandingPage/home/ProtectedRoute';
+
+import HomePage from './LandingPage/home/HomePage';
+
+import Login from './LandingPage/home/Login';
+
+import Register from './LandingPage/home/Register';
+
+import GalleryPage from './pages/GalleryPage';
+
+import HistoryPage from './pages/HistoryPage';
+
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    const [darkMode, setDarkMode] = useState(false);
+    const { theme } = useContext(ThemeContext);
+
+
+    return (
+
+        <div
+         className={
+          theme === 'dark'
+           ? 'dark-theme'
+                   : 'light-theme'
+         }
+         >
+
+        
+
+
+
+
+        <BrowserRouter>
+
+            <Navbar />
+
+           
+
+
+
+
+
+            
+
+
+
+            <Routes>
+
+                <Route
+                    path="/"
+                    element={
+                    <ProtectedRoute>
+                        <HomePage />
+                    </ProtectedRoute>
+                    
+                }
+                />
+
+                <Route
+                    path="/login"
+                    element={<Login />}
+                />  
+
+                <Route
+                    path="/register"
+                    element={<Register />}
+                />   
+
+
+                <Route
+                    path="/gallery"
+                    element={<GalleryPage />}
+                />
+
+
+
+                <Route
+                    path="/history"
+                    element={<HistoryPage />}
+                />
+
+                <Route
+                  path='/profile'
+                  element={<ProfilePage />}
+
+                />
+
+                
+
+            </Routes>
+            
+            <ToastContainer />
+
+        </BrowserRouter>
     </div>
-  );
+
+    );
+
 }
 
 export default App;
